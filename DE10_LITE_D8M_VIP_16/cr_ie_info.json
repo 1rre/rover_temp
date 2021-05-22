@@ -1,0 +1,22 @@
+{
+	"system" : {
+		"platform" : "linux64",
+		"os_name" : "Void \\r",
+		"os_version" : ""
+	},
+	"error" : {
+		"executable" : "quartus",
+		"comment" : "none",
+		"error_message" : "Segment Violation at 0x19ffffffee",
+		"source_file" : "unknown",
+		"line" : "0",
+		"stack_trace" : "\t0x7fb11663c147: ccl_fio + 0x12147 (_ZN8FIO_PATH45is_path_length_within_operating_system_limitsERKSs + 0x3)\n\t0x7fb11663c170: ccl_fio + 0x12170 (_ZNK8FIO_PATH8fullpathEv + 0x1c)\n\t0x7fb0ae0180d3: pgm_pgme + 0x410d3 (_ZN15PGME_PROGRAMMER16engage_ocpp_modeEPSt6vectorIP17PGM_CHAIN_ELEMENTSaIS2_EE + 0xa3f)\n\t0x7fb0adabd2e3: pgm_pgmwq + 0x342e3 (_ZN17PGMWQ_OCPP_THREAD3runEv + 0x11)\n\t0x7fb139aeebc2: QtCore.so.4 + 0x8fbc2\n\t0x7fb10e83feae: pthread.so.0 + 0x8eae (start_thread + 0xde)\n\t0x7fb10dcf32ff: c.so.6 + 0xfe2ff (clone + 0x3f)\n",
+		"subsystem" : "unknown"
+	},
+	"quartus" : {
+		"quartus_bits" : "64",
+		"version" : "17.1.0",
+		"build" : "590",
+		"edition" : "Lite Edition"
+	}
+}

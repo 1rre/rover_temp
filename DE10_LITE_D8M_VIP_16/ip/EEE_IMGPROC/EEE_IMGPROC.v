@@ -26,7 +26,8 @@ module EEE_IMGPROC(
 	source_eop,
 	
 	// conduit
-	mode
+	mode,
+	led
 	
 );
 
@@ -59,7 +60,10 @@ output								source_sop;
 output								source_eop;
 
 // conduit export
-input                         mode;
+input [9:0]                         mode;
+output[9:0]								 	led;
+
+assign led = mode;
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -76,27 +80,21 @@ wire [7:0]   red_out, green_out, blue_out;
 wire         sop, eop, in_valid, out_ready;
 ////////////////////////////////////////////////////////////////////////
 
-// Detect red areas
-wire red_detect;
-assign red_detect = red[7] & ~green[7] & ~blue[7];
+wire [23:0] im_1, im_2;
 
-// Find boundary of cursor box
-
-// Highlight detected areas
-wire [23:0] red_high;
-assign grey = green[7:1] + red[7:2] + blue[7:2]; //Grey = green/2 + red/4 + blue/4
-assign red_high  =  red_detect ? {8'hff, 8'h0, 8'h0} : {grey, grey, grey};
-
-// Show bounding box
-wire [23:0] new_image;
-wire bb_active;
-assign bb_active = (x == left) | (x == right) | (y == top) | (y == bottom);
-assign new_image = bb_active ? bb_col : red_high;
+edge_detect e_d (
+	.px_in({red,green,blue}),
+	.x(x),
+	.y(y),
+	.line_sync(line_complete & in_valid),
+	.clk(clk & in_valid),
+	.px_out(im_2)
+);
 
 // Switch output pixels depending on mode switch
 // Don't modify the start-of-packet word - it's a packet discriptor
 // Don't modify data in non-video packets
-assign {red_out, green_out, blue_out} = (mode & ~sop & packet_video) ? new_image : {red,green,blue};
+assign {red_out, green_out, blue_out} = (~mode[0] | sop | ~packet_video) ? im_1 : im_2;
 
 //Count valid pixels to tget the image coordinates. Reset and detect packet type on Start of Packet.
 reg [10:0] x, y;
@@ -108,30 +106,18 @@ always@(posedge clk) begin
 		packet_video <= (blue[3:0] == 3'h0);
 	end
 	else if (in_valid) begin
+		if (x == 320 && y == 240) begin
+			cross_val = {red,green,blue};
+		end
 		if (x == IMAGE_W-1) begin
+			line_complete <= 1;
 			x <= 11'h0;
 			y <= y + 11'h1;
 		end
 		else begin
+			line_complete <= 0;
 			x <= x + 11'h1;
 		end
-	end
-end
-
-//Find first and last red pixels
-reg [10:0] x_min, y_min, x_max, y_max;
-always@(posedge clk) begin
-	if (red_detect & in_valid) begin	//Update bounds when the pixel is red
-		if (x < x_min) x_min <= x;
-		if (x > x_max) x_max <= x;
-		if (y < y_min) y_min <= y;
-		y_max <= y;
-	end
-	if (sop & in_valid) begin	//Reset bounds on start of packet
-		x_min <= IMAGE_W-11'h1;
-		x_max <= 0;
-		y_min <= IMAGE_H-11'h1;
-		y_max <= 0;
 	end
 end
 
@@ -241,6 +227,7 @@ STREAM_REG #(.DATA_WIDTH(26)) out_reg (
 `define READ_MSG    				1
 `define READ_ID    				2
 `define REG_BBCOL					3
+`define READ_CROSS				4
 
 //Status register bits
 // 31:16 - unimplemented
@@ -252,8 +239,9 @@ STREAM_REG #(.DATA_WIDTH(26)) out_reg (
 
 // Process write
 
-reg  [7:0]   reg_status;
-reg	[23:0]	bb_col;
+reg  [7:0] reg_status;
+reg [23:0] bb_col;
+reg [23:0] cross_val;
 
 always @ (posedge clk)
 begin
@@ -291,6 +279,7 @@ begin
 		if   (s_address == `READ_MSG) s_readdata <= {msg_buf_out};
 		if   (s_address == `READ_ID) s_readdata <= 32'h1234EEE2;
 		if   (s_address == `REG_BBCOL) s_readdata <= {8'h0, bb_col};
+		if   (s_address == `READ_CROSS) s_readdata <= {8'h0, cross_val};
 	end
 	
 	read_d <= s_read;

@@ -19,6 +19,7 @@
 #define EEE_IMGPROC_MSG 1
 #define EEE_IMGPROC_ID 2
 #define EEE_IMGPROC_BBCOL 3
+#define EEE_IMGPROC_CROSS 4
 
 #define EXPOSURE_INIT 0x002000
 #define EXPOSURE_STEP 0x100
@@ -153,7 +154,7 @@ int main()
 	 	usleep(50*1000);
  	    mipi_clear_error();
 	 	usleep(1000*1000);
-	    mipi_show_error_info();
+	 	mipi_show_error_info();
 //	    mipi_show_error_info_more();
 	    printf("\n");
 //   }
@@ -242,15 +243,20 @@ int main()
 
        }
 	#endif
-
+/*
        //Read messages from the image processor and print them on the terminal
        while ((IORD(0x42000,EEE_IMGPROC_STATUS)>>8) & 0xff) { 	//Find out if there are words to read
            int word = IORD(0x42000,EEE_IMGPROC_MSG); 			//Get next word from message buffer
     	   if (word == EEE_IMGPROC_MSG_START){ 					//Newline on message identifier
-    		   printf("\n");
+    	//	   printf("\n");
     	   }
-    	   printf("%08x ",word);
+    	//   printf("%08x ",word);
        }
+*/
+		   //int word = IORD(0x42000, EEE_IMGPROC_CROSS);
+		   //printf("%06x\n", word);
+
+
 
        //Update the bounding box colour
        boundingBoxColour = ((boundingBoxColour + 1) & 0xff);

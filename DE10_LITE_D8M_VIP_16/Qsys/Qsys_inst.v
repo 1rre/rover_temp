@@ -14,7 +14,6 @@
 		.clk_sdram_clk                             (<connected-to-clk_sdram_clk>),                             //                        clk_sdram.clk
 		.clk_vga_clk                               (<connected-to-clk_vga_clk>),                               //                          clk_vga.clk
 		.d8m_xclkin_clk                            (<connected-to-d8m_xclkin_clk>),                            //                       d8m_xclkin.clk
-		.eee_imgproc_0_conduit_mode_new_signal     (<connected-to-eee_imgproc_0_conduit_mode_new_signal>),     //       eee_imgproc_0_conduit_mode.new_signal
 		.i2c_opencores_camera_export_scl_pad_io    (<connected-to-i2c_opencores_camera_export_scl_pad_io>),    //      i2c_opencores_camera_export.scl_pad_io
 		.i2c_opencores_camera_export_sda_pad_io    (<connected-to-i2c_opencores_camera_export_sda_pad_io>),    //                                 .sda_pad_io
 		.i2c_opencores_mipi_export_scl_pad_io      (<connected-to-i2c_opencores_mipi_export_scl_pad_io>),      //        i2c_opencores_mipi_export.scl_pad_io
@@ -40,6 +39,8 @@
 		.terasic_camera_0_conduit_end_D            (<connected-to-terasic_camera_0_conduit_end_D>),            //     terasic_camera_0_conduit_end.D
 		.terasic_camera_0_conduit_end_FVAL         (<connected-to-terasic_camera_0_conduit_end_FVAL>),         //                                 .FVAL
 		.terasic_camera_0_conduit_end_LVAL         (<connected-to-terasic_camera_0_conduit_end_LVAL>),         //                                 .LVAL
-		.terasic_camera_0_conduit_end_PIXCLK       (<connected-to-terasic_camera_0_conduit_end_PIXCLK>)        //                                 .PIXCLK
+		.terasic_camera_0_conduit_end_PIXCLK       (<connected-to-terasic_camera_0_conduit_end_PIXCLK>),       //                                 .PIXCLK
+		.eee_imgproc_0_img_sw_new_signal           (<connected-to-eee_imgproc_0_img_sw_new_signal>),           //             eee_imgproc_0_img_sw.new_signal
+		.eee_imgproc_0_img_led_led_out             (<connected-to-eee_imgproc_0_img_led_led_out>)              //            eee_imgproc_0_img_led.led_out
 	);
 

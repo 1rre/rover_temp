@@ -170,14 +170,26 @@ set_interface_assignment s1 embeddedsw.configuration.isPrintableDevice 0
 # 
 # connection point conduit_mode
 # 
-add_interface conduit_mode conduit end
-set_interface_property conduit_mode associatedClock clock
-set_interface_property conduit_mode associatedReset ""
-set_interface_property conduit_mode ENABLED true
-set_interface_property conduit_mode EXPORT_OF ""
-set_interface_property conduit_mode PORT_NAME_MAP ""
-set_interface_property conduit_mode CMSIS_SVD_VARIABLES ""
-set_interface_property conduit_mode SVD_ADDRESS_GROUP ""
+add_interface img_sw conduit end
+set_interface_property img_sw associatedClock clock
+set_interface_property img_sw associatedReset ""
+set_interface_property img_sw ENABLED true
+set_interface_property img_sw EXPORT_OF ""
+set_interface_property img_sw PORT_NAME_MAP ""
+set_interface_property img_sw CMSIS_SVD_VARIABLES ""
+set_interface_property img_sw SVD_ADDRESS_GROUP ""
+add_interface_port img_sw mode new_signal Input 10
 
-add_interface_port conduit_mode mode new_signal Input 1
 
+# 
+# connection point conduit_mode
+# 
+add_interface img_led conduit end
+set_interface_property img_led associatedClock clock
+set_interface_property img_led associatedReset ""
+set_interface_property img_led ENABLED true
+set_interface_property img_led EXPORT_OF ""
+set_interface_property img_led PORT_NAME_MAP ""
+set_interface_property img_led CMSIS_SVD_VARIABLES ""
+set_interface_property img_led SVD_ADDRESS_GROUP ""
+add_interface_port img_led led led_out Output 10

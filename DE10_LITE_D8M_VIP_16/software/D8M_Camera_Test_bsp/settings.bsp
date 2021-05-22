@@ -2,11 +2,11 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>14-May-2021 21:40:25</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1621024825749</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>F:\Ed\Stuff\EEE2Rover\DE10_LITE_D8M_VIP_16\software\D8M_Camera_Test_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>May 22, 2021 8:20:21 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1621711221139</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>/home/tm/clones/EEE2Rover/DE10_LITE_D8M_VIP_16/software/D8M_Camera_Test_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
-        <SopcDesignFile>..\..\Qsys.sopcinfo</SopcDesignFile>
+        <SopcDesignFile>../../Qsys.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
         <Cpu>nios2_gen2</Cpu>
         <SchemaVersion>1.9</SchemaVersion>
